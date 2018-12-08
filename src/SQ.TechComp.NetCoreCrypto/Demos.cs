@@ -6,7 +6,7 @@ namespace SQ.TechComp.NetCoreCrypto
 {
     static class Demos
     {
-        internal static void CryptographicHashFunction()
+        internal static void CryptographicHashFunctionDemo()
         {
             foreach (var message in new[] {
                 "Fox",
@@ -39,6 +39,50 @@ namespace SQ.TechComp.NetCoreCrypto
             // 3. Receiver: Decrypt message using same key
             var decryptedMessage = SymmetricEncryption.Decrypt(encryptedMessage, key, iv);
             Console.WriteLine("Recieved and decrypted message: " + decryptedMessage);
+        }
+
+        internal static void AsymmetricEncryptionDemo()
+        {
+            var unencryptedMessage = "To be or not to be, that is the question, whether tis nobler in the...";
+            Console.WriteLine("Unencrypted message: " + unencryptedMessage);
+
+            // 1. Create a public / private key pair.
+            RSAParameters privateAndPublicKeys, publicKeyOnly;
+            using (var rsaAlg = RSA.Create())
+            {
+                privateAndPublicKeys = rsaAlg.ExportParameters(includePrivateParameters: true);
+                publicKeyOnly = rsaAlg.ExportParameters(includePrivateParameters: false);
+            }
+
+            // 2. Sender: Encrypt message using public key
+            var encryptedMessage = AsymmetricEncryption.Encrypt(unencryptedMessage, publicKeyOnly);
+            Console.WriteLine("Sending encrypted message: " + encryptedMessage.ToHex());
+
+            // 3. Receiver: Decrypt message using private key
+            var decryptedMessage = AsymmetricEncryption.Decrypt(encryptedMessage, privateAndPublicKeys);
+            Console.WriteLine("Recieved and decrypted message: " + decryptedMessage);
+        }
+
+        internal static void MessageSignatureDemo()
+        {
+            var message = "To be or not to be, that is the question, whether tis nobler in the...";
+            Console.WriteLine("Message to be verified: " + message);
+
+            // 1. Create a public / private key pair.
+            RSAParameters privateAndPublicKeys, publicKeyOnly;
+            using (var rsaAlg = RSA.Create())
+            {
+                privateAndPublicKeys = rsaAlg.ExportParameters(includePrivateParameters: true);
+                publicKeyOnly = rsaAlg.ExportParameters(includePrivateParameters: false);
+            }
+
+            // 2. Sender: Sign message using private key
+            var signature = AsymmetricEncryption.Sign(message, privateAndPublicKeys);
+            Console.WriteLine("Message signature: " + signature.ToHex());
+
+            // 3. Receiver: Verify message authenticity using public key
+            var isTampered = AsymmetricEncryption.Verify(message, signature, publicKeyOnly);
+            Console.WriteLine("Message is untampered: " + isTampered.ToString());
         }
     }
 }

@@ -7,12 +7,20 @@ namespace SQ.TechComp.NetCoreCrypto
         static void Main(string[] args)
         {
             Console.WriteLine("***** Cryptographic hash demo *****");
-            Demos.CryptographicHashFunction();
-            Console.WriteLine(string.Empty);
+            Demos.CryptographicHashFunctionDemo();
+            Console.Write(Environment.NewLine);
             
             Console.WriteLine("***** Symmetric encryption demo *****");
             Demos.SymmetricEncryptionDemo();
-            Console.WriteLine(string.Empty);
+            Console.Write(Environment.NewLine);
+            
+            Console.WriteLine("***** Asymmetric encryption demo *****");
+            Demos.AsymmetricEncryptionDemo();
+            Console.Write(Environment.NewLine);
+            
+            Console.WriteLine("***** Message signature demo *****");
+            Demos.MessageSignatureDemo();
+            Console.Write(Environment.NewLine);
         }
     }
 }

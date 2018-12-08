@@ -9,7 +9,7 @@ namespace SQ.TechComp.NetCoreCrypto
     {        
         internal static byte[] Encrypt(string message, byte[] key, byte[] iv)
         {
-            using (Aes aesAlg = Aes.Create())
+            using (var aesAlg = Aes.Create())
             {
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
@@ -27,12 +27,12 @@ namespace SQ.TechComp.NetCoreCrypto
                         return ms.ToArray();
                     }
                 }
-            };
+            }
         }
 
         internal static string Decrypt(byte[] cipherText, byte[] key, byte[] iv)
         {
-            using (Aes aesAlg = Aes.Create())
+            using (var aesAlg = Aes.Create())
             {
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
