@@ -8,6 +8,8 @@ namespace SQ.TechComp.NetCoreCrypto
     {
         internal static void CryptographicHashFunctionDemo()
         {
+            Console.WriteLine("***** Cryptographic hash demo *****");
+
             foreach (var message in new[] {
                 "Fox",
                 "The red fox jumps over the blue dog",
@@ -17,10 +19,14 @@ namespace SQ.TechComp.NetCoreCrypto
             {
                 Console.WriteLine($"{ message } => { CryptographicHash.ComputeHash(message) }");
             }
+            
+            Console.Write(Environment.NewLine);
         }
 
         internal static void SymmetricEncryptionDemo()
         {
+            Console.WriteLine("***** Symmetric encryption demo *****");
+
             var unencryptedMessage = "To be or not to be, that is the question, whether tis nobler in the...";
             Console.WriteLine("Unencrypted message: " + unencryptedMessage);
 
@@ -39,10 +45,14 @@ namespace SQ.TechComp.NetCoreCrypto
             // 3. Receiver: Decrypt message using same key
             var decryptedMessage = SymmetricEncryption.Decrypt(encryptedMessage, key, iv);
             Console.WriteLine("Recieved and decrypted message: " + decryptedMessage);
+            
+            Console.Write(Environment.NewLine);
         }
 
         internal static void AsymmetricEncryptionDemo()
         {
+            Console.WriteLine("***** Asymmetric encryption demo *****");
+
             var unencryptedMessage = "To be or not to be, that is the question, whether tis nobler in the...";
             Console.WriteLine("Unencrypted message: " + unencryptedMessage);
 
@@ -61,10 +71,14 @@ namespace SQ.TechComp.NetCoreCrypto
             // 3. Receiver: Decrypt message using private key
             var decryptedMessage = AsymmetricEncryption.Decrypt(encryptedMessage, privateAndPublicKeys);
             Console.WriteLine("Recieved and decrypted message: " + decryptedMessage);
+            
+            Console.Write(Environment.NewLine);
         }
 
         internal static void MessageSignatureDemo()
         {
+            Console.WriteLine("***** Message signature demo *****");
+
             var message = "To be or not to be, that is the question, whether tis nobler in the...";
             Console.WriteLine("Message to be verified: " + message);
 
@@ -83,6 +97,8 @@ namespace SQ.TechComp.NetCoreCrypto
             // 3. Receiver: Verify message authenticity using public key
             var isTampered = AsymmetricEncryption.Verify(message, signature, publicKeyOnly);
             Console.WriteLine("Message is untampered: " + isTampered.ToString());
+
+            Console.Write(Environment.NewLine);
         }
     }
 }
